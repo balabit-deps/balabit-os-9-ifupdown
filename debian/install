@@ -1,0 +1,4 @@
+contrib/* usr/share/doc/ifupdown/contrib
+debian/ifupdown-hotplug lib/udev
+debian/if-up.d/ etc/network/
+debian/if-down.d/ etc/network/

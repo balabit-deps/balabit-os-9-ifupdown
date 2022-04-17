@@ -1,0 +1,18 @@
+exit code: 0
+====stdout====
+====stderr====
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+
+ifup: configuring interface eth0=eth0 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+
+/sbin/ifconfig eth0 1.2.3.4 netmask 255.255.255.0  	   	up
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+ifup: configuring interface eth0=eth0 (inet6)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+/sbin/ifconfig eth0    up
+/sbin/ifconfig eth0 inet6 3ffe:ffff:100:f101::1/64 alias
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+run-parts --exit-on-error --verbose /etc/network/if-up.d

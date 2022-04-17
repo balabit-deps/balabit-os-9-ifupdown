@@ -1,0 +1,72 @@
+address_family link
+architecture linux
+
+method none
+  description
+  options
+    description description -- Link description []
+
+  conversion
+    iface (get_token . 0 "") =link
+    iface (get_token . 1 "") =vlan_id0
+    iface (get_token : 0 "") =iface0
+    vlan_id0 (get_token : 0 "") =vlan_id1
+    vlan_id1 (to_decimal 10) =vlan_id
+  up
+    if test -d /sys/class/net/%link% && \
+        ! ip link show %iface0% >/dev/null 2>&1; \
+    then \
+        if test `cat /sys/class/net/%link%/type` -eq 32; then \
+            echo 0x%vlan_id1% > /sys/class/net/%link%/create_child; \
+        else \
+            ip link set up dev %link%; \
+            ip link add link %link% name %iface0% type vlan id %vlan_id%; \
+	fi; \
+    fi if (iface_has("."))
+    -ip link set up dev %iface% 2>/dev/null \
+	if (iface_is_lo())
+    [[ip link set %iface0% alias "%description%"]]
+  down
+    if test `cat /sys/class/net/%link%/type` -eq 32; then \
+        echo 0x%vlan_id1% > /sys/class/net/%link%/delete_child; \
+    else \
+        ip link del %iface%; \
+    fi if (iface_has(".") && !iface_has(":"))
+    -ip link set down dev %iface% 2>/dev/null \
+	if (iface_is_lo())
+    [[-test -n "%description%" && ip link set %iface0% alias ""]]
+  rename
+    ip link set %iface% name %newname%
+
+architecture kfreebsd
+
+method none
+  description
+
+  options
+    description description -- Link description []
+
+  up
+    -/sbin/ifconfig %iface% 127.0.0.1 up \
+	if (iface_is_lo())
+    -/sbin/ifconfig %iface% inet6 ::1 \
+	if (iface_is_lo())
+    [[-/sbin/ifconfig %iface% desc "%description%"]]
+  down
+    -/sbin/ifconfig %iface% down \
+	if (iface_is_lo())
+    [[-test -n "%description%" && /sbin/ifconfig %iface% -desc]]
+  rename
+    /sbin/ifconfig %iface% name %newname%
+
+architecture hurd
+
+method none
+  description
+  up
+    -inetutils-ifconfig --interface %iface% --address 127.0.0.1 --up \
+	if (iface_is_lo())
+  down
+    -inetutils-ifconfig --interface %iface% --down \
+	if (iface_is_lo())
+

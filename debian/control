@@ -1,0 +1,26 @@
+Source: ifupdown
+Section: admin
+Priority: important
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Josué Ortega <josue@debian.org>
+Uploaders: Santiago Ruano Rincón <santiago@debian.org>
+Standards-Version: 4.5.0
+Build-Depends: debhelper-compat (= 13)
+Vcs-Git: https://salsa.debian.org/debian/ifupdown.git
+Vcs-Browser: https://salsa.debian.org/debian/ifupdown
+Rules-Requires-Root: no
+
+Package: ifupdown
+Architecture: any
+Depends: ${net:Depends}, ${shlibs:Depends}, ${misc:Depends},
+ lsb-base, adduser,
+ iproute2 [linux-any], freebsd-net-tools [kfreebsd-any], inetutils-tools [hurd-any]
+Recommends: isc-dhcp-client | dhcp-client
+Suggests: ppp, rdnssd, ${net:Suggests}
+Replaces: systemd (<< 228-3~)
+Breaks: systemd (<< 228-3~)
+Multi-Arch: foreign
+Description: high level tools to configure network interfaces
+ This package provides the tools ifup and ifdown which may be used to
+ configure (or, respectively, deconfigure) network interfaces based on
+ interface definitions in the file /etc/network/interfaces.

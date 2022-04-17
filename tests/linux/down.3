@@ -1,0 +1,20 @@
+exit code: 0
+====stdout====
+====stderr====
+run-parts --verbose /etc/network/if-down.d
+ifdown: configuring interface eth1=eth1 (inet6)
+run-parts --verbose /etc/network/if-down.d
+ ip -6 route del default via 3ffe:ffff:100:f102::fff  dev eth1 
+ip -6 addr del 3ffe:ffff:100:f102::1/64  dev eth1
+ip -6 addr flush dev eth1
+ip link set dev eth1 down
+run-parts --verbose /etc/network/if-post-down.d
+ifdown: configuring interface eth1=eth1 (inet6)
+run-parts --verbose /etc/network/if-down.d
+ ip -6 route del default via 3ffe:ffff:100:f102::fff  dev eth1 
+ip -6 addr del 3ffe:ffff:100:f102::6/64  dev eth1
+ip -6 addr flush dev eth1
+ip link set dev eth1 down
+run-parts --verbose /etc/network/if-post-down.d
+
+run-parts --verbose /etc/network/if-post-down.d

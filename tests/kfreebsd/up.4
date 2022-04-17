@@ -1,0 +1,12 @@
+exit code: 0
+====stdout====
+====stderr====
+
+ifup: configuring interface eth0=work (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+
+/sbin/ifconfig eth0 1.2.3.4 netmask 255.255.255.0  	   	up
+
+echo hi
+echo hello
+run-parts --exit-on-error --verbose /etc/network/if-up.d

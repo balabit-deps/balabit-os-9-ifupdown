@@ -1,0 +1,6 @@
+exit code: 0
+====stdout====
+====stderr====
+ifdown: parsing file /dev/null
+run-parts --verbose /etc/network/if-down.d
+run-parts --verbose /etc/network/if-post-down.d

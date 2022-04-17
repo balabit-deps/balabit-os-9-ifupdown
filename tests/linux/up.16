@@ -1,0 +1,60 @@
+exit code: 0
+====stdout====
+====stderr====
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip link set up dev lo 2>/dev/null
+
+ifup: configuring interface lo=lo (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+
+ifup: configuring interface eth0=eth0 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip addr add 1.2.3.4/255.255.255.0 broadcast 1.2.3.255 	  dev eth0 label eth0
+ip link set dev eth0   up
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+
+ifup: configuring interface eth1=eth1 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip addr add 1.2.3.4/255.255.255.0 broadcast 1.2.3.255 	  dev eth1 label eth1
+ip link set dev eth1 mtu 1500 address 12:34:56:89:0a:bc up
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+ifup: configuring interface eth1=eth1 (inet6)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+/sbin/modprobe -q net-pf-10 > /dev/null 2>&1 || true # ignore failure.
+
+
+/sbin/sysctl -q -e -w net.ipv6.conf.eth1.autoconf=0
+if [ "$(/bin/cat /sys/class/net/eth1/mtu)" -lt 1492 ]; then ip link set dev eth1 mtu 1492; else /sbin/sysctl -q -e -w net.ipv6.conf.eth1.mtu=1492; fi
+ip link set dev eth1 address 12:34:ff:fe:0a:bc up
+ip -6 addr add 3ffe:ffff:120::fffe:1/64  dev eth1 
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+
+ifup: configuring interface eth2=eth2 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip addr add 1.2.3.5/255.255.255.0 broadcast 1.2.3.255 	  dev eth2 label eth2
+ip link set dev eth2 mtu 1500 address 12:34:56:89:0a:bc up
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+ifup: configuring interface eth2=eth2 (inet6)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+/sbin/modprobe -q net-pf-10 > /dev/null 2>&1 || true # ignore failure.
+
+
+/sbin/sysctl -q -e -w net.ipv6.conf.eth2.autoconf=0
+if [ "$(/bin/cat /sys/class/net/eth2/mtu)" -lt 1492 ]; then ip link set dev eth2 mtu 1492; else /sbin/sysctl -q -e -w net.ipv6.conf.eth2.mtu=1492; fi
+ip link set dev eth2 address 12:34:ff:fe:0a:bc up
+ip -6 addr add 3ffe:ffff:120::fffe:1/64  dev eth2 
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+
+ifup: configuring interface eth3=eth3 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip addr add 1.2.3.5/255.255.255.0 broadcast 1.2.3.255 	  dev eth3 label eth3
+ip link set dev eth3 mtu 1500 address 12:34:56:89:0a:bc up
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+run-parts --exit-on-error --verbose /etc/network/if-up.d

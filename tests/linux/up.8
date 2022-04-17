@@ -1,0 +1,39 @@
+exit code: 0
+====stdout====
+====stderr====
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+
+ifup: configuring interface eth1=eth1 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip addr add 1.2.3.4/255.255.255.0 broadcast 1.2.3.255 	  dev eth1 label eth1
+ip link set dev eth1   up
+
+echo hi
+echo hello
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+
+ifup: configuring interface eth1:1=eth1:1 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip addr add 1.5.3.4/255.255.255.0 broadcast 1.5.3.255 	  dev eth1:1 label eth1:1
+ip link set dev eth1:1   up
+
+echo hihi
+echo hellolo
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+if test -d /sys/class/net/eth2 &&     	! ip link show eth2.2 >/dev/null 2>&1;     then         if test `cat /sys/class/net/eth2/type` -eq 32; then             echo 0x2 > /sys/class/net/eth2/create_child;         else             ip link set up dev eth2;             ip link add link eth2 name eth2.2 type vlan id 2; 	fi;     fi
+
+ifup: configuring interface eth2.2=eth2.2 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip addr add 2.3.4.5/255.255.255.0 broadcast 2.3.4.255 	  dev eth2.2 label eth2.2
+ip link set dev eth2.2   up
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+if test -d /sys/class/net/eth2 &&     	! ip link show eth2.2 >/dev/null 2>&1;     then         if test `cat /sys/class/net/eth2/type` -eq 32; then             echo 0x2 > /sys/class/net/eth2/create_child;         else             ip link set up dev eth2;             ip link add link eth2 name eth2.2 type vlan id 2; 	fi;     fi
+
+ifup: configuring interface eth2.2:3=eth2.2:3 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+ip addr add 3.4.5.6/255.255.254.0 broadcast 3.4.5.255 	  dev eth2.2:3 label eth2.2:3
+ip link set dev eth2.2:3   up
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+run-parts --exit-on-error --verbose /etc/network/if-up.d

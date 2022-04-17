@@ -1,0 +1,6 @@
+exit code: 0
+====stdout====
+====stderr====
+ifup: parsing file /dev/null
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+run-parts --exit-on-error --verbose /etc/network/if-up.d

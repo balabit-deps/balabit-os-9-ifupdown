@@ -1,0 +1,21 @@
+exit code: 0
+====stdout====
+====stderr====
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+inetutils-ifconfig --interface lo --address 127.0.0.1 --up
+ifup: configuring interface lo=lo (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+ifup: configuring interface /dev/eth0=/dev/eth0 (inet)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+
+inetutils-ifconfig --interface /dev/eth0 --address 1.2.3.4 --netmask 255.255.255.0           --up
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+ifup: configuring interface /dev/eth0=/dev/eth0 (inet6)
+run-parts --exit-on-error --verbose /etc/network/if-pre-up.d
+FIXME: Add proper commands here for ipv6
+
+
+run-parts --exit-on-error --verbose /etc/network/if-up.d
+run-parts --exit-on-error --verbose /etc/network/if-up.d

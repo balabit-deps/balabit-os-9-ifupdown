@@ -1,0 +1,24 @@
+exit code: 0
+====stdout====
+====stderr====
+run-parts --verbose /etc/network/if-down.d
+ifdown: configuring interface eth3=eth3 (inet)
+run-parts --verbose /etc/network/if-down.d
+ip -4 addr flush dev eth3 2>/dev/null || true
+run-parts --verbose /etc/network/if-post-down.d
+
+ifdown: configuring interface eth2=eth2 (inet)
+ip -4 addr flush dev eth2 2>/dev/null || true
+
+ifdown: configuring interface eth1=eth1 (inet)
+ip -4 addr flush dev eth1 2>/dev/null || true
+
+ifdown: configuring interface eth0=eth0 (inet)
+ip -4 addr flush dev eth0 2>/dev/null || true
+
+ifdown: configuring interface lo=lo (inet)
+run-parts --verbose /etc/network/if-down.d
+run-parts --verbose /etc/network/if-post-down.d
+ip link set down dev lo 2>/dev/null
+
+run-parts --verbose /etc/network/if-post-down.d

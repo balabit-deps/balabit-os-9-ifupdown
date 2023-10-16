@@ -1,3 +1,14 @@
+ifupdown (0.8.36+nmu1ubuntu3.1) jammy; urgency=medium
+
+  [ Uwe Kleine-König ]
+  * Fix if-up.d/resolved hook to properly work with nameservers and search
+    domains (LP: #1981103)
+
+  [ Heinrich Schuchardt ]
+  *  Remove invalid lines from resolved integration scripts (LP: #1907878)
+
+ -- Joao Andre Simioni <joao.simioni@canonical.com>  Mon, 16 Oct 2023 14:41:24 +0000
+
 ifupdown (0.8.36+nmu1ubuntu3) jammy; urgency=medium
 
   * debian/if-up.d/resolved: also chown $statedir to

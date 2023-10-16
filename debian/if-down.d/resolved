@@ -9,7 +9,6 @@ case "$ADDRFAM" in
 esac            
 
 if systemctl is-enabled systemd-resolved > /dev/null 2>&1; then
-    mystatedir statedir ifindex interface
     interface=$IFACE
     if [ ! "$interface" ]; then
         return

@@ -9,8 +9,6 @@ case "$ADDRFAM" in
 esac            
 
 if systemctl is-enabled systemd-resolved > /dev/null 2>&1; then
-    mystatedir statedir ifindex interface
-
     interface=$IFACE
     if [ ! "$interface" ]; then
         return
@@ -45,11 +43,11 @@ if systemctl is-enabled systemd-resolved > /dev/null 2>&1; then
     fi
     if  [ -n "$NEW_DNS" ]; then
         cat <<EOF >"$mystatedir/ifupdown-${ADDRFAM}-$interface"
-"$DNS"="$NEW_DNS"
+$DNS="$NEW_DNS"
 EOF
         if  [ -n "$NEW_DOMAINS" ]; then
             cat <<EOF >>"$mystatedir/ifupdown-${ADDRFAM}-$interface"
-"$DOMAINS"="$NEW_DOMAINS"
+$DOMAINS="$NEW_DOMAINS"
 EOF
         fi
     fi
@@ -68,7 +66,7 @@ EOF
     # ignore errors due to nonexistent file
     md5sum "$mystatedir/isc-dhcp-v4-$interface" "$mystatedir/isc-dhcp-v6-$interface" "$mystatedir/ifupdown-inet-$interface" "$mystatedir/ifupdown-inet6-$interface" > "$newstate" 2> /dev/null || true
     if ! cmp --silent "$oldstate" "$newstate" 2>/dev/null; then
-        DNS DNS6 DOMAINS DOMAINS6 DEFAULT_ROUTE
+        unset DNS DNS6 DOMAINS DOMAINS6 DEFAULT_ROUTE
         # v4 first
         if [ -e "$mystatedir/isc-dhcp-v4-$interface" ]; then
             . "$mystatedir/isc-dhcp-v4-$interface"
